@@ -24,7 +24,9 @@
 3. Instalar posibles dependencias
 
     ```powershell
-    
+    python -m ensurepip
+    python -m pip install --upgrade pip
+    pip install -r requirements.txt
     ```
 
 4. Localizar un vídeo y recoger un fotograma o imagen que aparezca en este.

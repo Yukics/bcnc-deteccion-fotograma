@@ -20,17 +20,17 @@ def startRecon(video, image):
 
     # Mientras vidcap nos deje leer el stream de video realizaremos las siguientes acciones
     while (vidcap.isOpened()): 
-      # Leemos un frame
-      success, image = vidcap.read() 
-      
-      if not success: 
-        # Si dejamos de poder leer el vídeo paramos
-        logging.warning('Algo ha fallado a la hora leer un fotograma o ha finalizado el procesamiento del video')
-        break         
+        # Leemos un frame
+        success, image = vidcap.read() 
+        
+        if not success: 
+            # Si dejamos de poder leer el vídeo paramos
+            logging.warning('Algo ha fallado a la hora leer un fotograma o ha finalizado el procesamiento del video')
+            break         
 
-      # Comparamos nuestra captura con el frame del video
-      processImage(image, template, count) 
-      count += 1
+        # Comparamos nuestra captura con el frame del video
+        processImage(image, template, count) 
+        count += 1
 
 def processImage(frame, template, count):
     
