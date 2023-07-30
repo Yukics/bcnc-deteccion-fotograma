@@ -6,6 +6,7 @@
 
 + Python 3.11
 + Git
++ Probado en Windows 11
 
 ## Puesta en marcha
 
@@ -29,21 +30,19 @@
     pip install -r requirements.txt
     ```
 
-4. Localizar un vídeo y recoger un fotograma o imagen que aparezca en este.
+4. Localizar un vídeo y recoger un fotograma o imagen que aparezca en este. O simplemente utilizar los ubicados en la carpeta `media`.
 
-5. Localizar el fotograma exacto en el que aparece utilizando el siguiente comando
+5. Localizar el fotograma exacto en el que aparece utilizando el siguiente comando:
+    + `-v`: Ubicación del vídeo
+    + `-i`: Ubicación de la imagen o fotograma
 
     ```powershell
-    py .\main.py -i ./media/prueba.png -v ./media/video.mp4
+    py .\main.py -i ./media/prueba.png -v ./media/prueba.mp4
     ```
 
+## Especificación
+
 Necesitamos un vídeo (testeado con 2 mp4) y una imagen (testeado con png), de no encontrarse dentro del vídeo es probable que no se muestre nada por pantalla y la ejecución del script se detenga automáticamente.
-
-El programa necesita dos argumentos, la imagen que queremos encontrar dentro del vídeo y el vídeo en cuestión. Una vez activado el virtualenv (detalles de como hacerlo más abajo), ej:
-
-```powershell
-(env) PS C:\Users\yuki\Documents\repos\bcnc-deteccion-fotograma> py main.py -i ./media/prueba.png -v ./media/video.mp4
-```
 
 ## Inicialización del proyecto y comandos de utilidad
 
@@ -65,7 +64,7 @@ Activar virtual environment:
 .\env\Scripts\activate
 ```
 
-Instalación de paquetes necesarios:
+Instalación de paquetes necesarios, ej:
 
 ```powershell
 py -m pip install requests opencv-python
@@ -91,22 +90,15 @@ deactivate
 
 ## Mejoras implementadas
 
-De la forma en la que planificaba desde un principio el proyecto decidí que sería posible que un requisito más adelante podría ser detectar alguna parte de un fotograma por lo que la implementación del reconocimiento de la imagen también es capaz de detectar 
+Al comenzar el proyecto tuve en cuenta que posiblemente un futuro requisito podría ser el reconocimiento de cualquier parte de fotograma. Por lo que utilice directamente el método de OpenCV `.matchTemplate`.
 
 ## Posibles Mejoras
 
-Dependiendo de la resolución de pantalla es posible que la imagen template no encaje correctamente con el frame del video por lo que se podría realizar un escalado a la baja del frame para hacerlo coincidir correctamente independientemente de la resolución original del video.
+Dependiendo de la resolución de pantalla, es posible que la imagen template no encaje correctamente con el frame del video. Por lo que se podría realizar un escalado a la baja del frame, para hacerlo coincidir con la escala de la imagen a reconocer. Debido al overhead de cómputo que esto iba a suponer y tiempo dedicado decidí priorizar una segunda prueba en la que mostrar otro abanico de conocimientos.
 
 ## Referencias
 
 + Venv [https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/)
-
-## Miscelaneas
-
-+ Ryzen 5900x
-+ RAM 64GB
-+ Windows 11
-+ Python 3.10
 
 Origen de los videos de pruebas sin copyright: 
 + [https://www.pexels.com/video/light-road-dawn-landscape-16343098/](https://www.pexels.com/video/light-road-dawn-landscape-16343098/)
