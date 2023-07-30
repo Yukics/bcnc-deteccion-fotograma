@@ -2,6 +2,8 @@ import logging
 import cv2
 import numpy as np
 import os
+import sys
+from datetime import timedelta
 
 def startRecon(video, image):
     logging.info("Comenzando el proceso de reconocimiento durante el video")
@@ -9,6 +11,7 @@ def startRecon(video, image):
     try:
         # Cargamos el video
         vidcap = cv2.VideoCapture(video)
+        fps = vidcap.get(cv2.CAP_PROP_FPS)
         # Cargamos la captura de alguno de los frames 
         template = cv2.imread(image,0) 
 
@@ -29,10 +32,10 @@ def startRecon(video, image):
             break         
 
         # Comparamos nuestra captura con el frame del video
-        processImage(image, template, count) 
+        processImage(image, template, count, fps) 
         count += 1
 
-def processImage(frame, template, count):
+def processImage(frame, template, count, fps):
     
     # Convertimos de rgb a escala de grises el frame
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -51,7 +54,7 @@ def processImage(frame, template, count):
     
     # Cuando comprobamos el grado de fiabilidad, y existe una coincidencia casi exacta, estas arrays no estarán vacías
     if np.any(loc[0]) and np.any(loc[1]):
-        logging.info('Localizada coincidencia con el frame n {}'.format(count))
+        logging.info('Localizada coincidencia con el frame n {}, fps: {}, time: {}'.format(count, fps, str(timedelta(seconds=count/fps))))
         
         # Procedemos a generar el recuadro y a mostrar por pantalla la coincidencia ademas de al directorio processed
         for pt in zip(*loc[::-1]):
@@ -68,7 +71,6 @@ def processImage(frame, template, count):
         imS = cv2.resize(frame, (960, 540)) 
 
         # Mostramos por pantalla la imagen
-        cv2.imshow('Frame n {}'.format(count) ,imS)
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
-        cv2.waitKey(1)
+        cv2.imshow('Frame n {}, fps: {} ,time: {}'.format(count, fps, str(timedelta(seconds=count/fps))) ,imS)
+        cv2.waitKey(0) 
+        sys.exit(0)
