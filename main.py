@@ -18,8 +18,8 @@ def main():
         description='Muestra el fotograma exacto en el que aparezca la imagen pasada como parametro',
         epilog="Gracias por usar %(prog)s! :)",
     )
-    parser.add_argument("-i", "--image")
-    parser.add_argument("-v", "--video")
+    parser.add_argument("-i", "--image", required=True)
+    parser.add_argument("-v", "--video", required=True)
 
     args = parser.parse_args()
 
